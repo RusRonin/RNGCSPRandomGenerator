@@ -9,13 +9,13 @@ using System.Security.Cryptography;
 
 namespace RNGCSPRandomGenerator
 {
-    public class RandomGenerator : IRandomGenerator
+    public class RNGCSPRandomGenerator : IRandomGenerator
     {
         private readonly RNGCryptoServiceProvider rngcsp;
 
         private bool disposed = false;
 
-        public RandomGenerator()
+        public RNGCSPRandomGenerator()
         {
             rngcsp = new RNGCryptoServiceProvider();
 
@@ -223,7 +223,7 @@ namespace RNGCSPRandomGenerator
             }
         }
 
-        ~RandomGenerator()
+        ~RNGCSPRandomGenerator()
         {
             Dispose(false);
         }
