@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 //created for .Net Core 2.2
 //surely works on .Net Core 2.1, other versions are untested
 
-//version 1.1
+//version 1.2
 //03.09.2019
 
 
@@ -162,10 +162,10 @@ namespace RandomGenerator
             do
             {
                 rngcsp.GetBytes(randomBytes);
-                randomNumber = (uint)(randomBytes[0] + (randomBytes[1] * Math.Pow(2, 8)) +
+                randomNumber = (ulong)(randomBytes[0] + (randomBytes[1] * Math.Pow(2, 8)) +
                 (randomBytes[2] * Math.Pow(2, 16)) + (randomBytes[3] * Math.Pow(2, 24)) +
                 (randomBytes[4] * Math.Pow(2, 32)) + (randomBytes[5] * Math.Pow(2, 40)) + 
-                (randomBytes[6] * Math.Pow(2, 48)) + (randomBytes[7] * Math.Pow(2, 48)));
+                (randomBytes[6] * Math.Pow(2, 48)) + (randomBytes[7] * Math.Pow(2, 56)));
             }
             while (!IsCorrectlyRandomized(randomNumber, (upperLimit - lowerLimit + (ulong)(upperLimit == lowerLimit ? 1 : 0)), ulong.MaxValue));
 
@@ -179,6 +179,7 @@ namespace RandomGenerator
             {
                 //if result > long.MaxValue we can simply substract MaxValue from result and get positive number,
                 //which is necessary because calculation is performed in ulong
+                Console.WriteLine(result);
                 if (result > long.MaxValue)
                 {
                     return (long) (result - long.MaxValue);
