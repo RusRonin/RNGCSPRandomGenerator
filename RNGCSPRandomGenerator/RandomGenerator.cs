@@ -6,8 +6,11 @@ using System.Security.Cryptography;
 //created for .Net Core 2.2
 //surely works on .Net Core 2.1, other versions are untested
 
+//version 1.1
+//03.09.2019
 
-namespace RNGCSPRandomGenerator
+
+namespace RandomGenerator
 {
     public class RNGCSPRandomGenerator : IRandomGenerator
     {
@@ -45,10 +48,10 @@ namespace RNGCSPRandomGenerator
                 rngcsp.GetBytes(randomBytes);
                 randomNumber = randomBytes[0];
             }
-            while (!IsCorrectlyRandomized(randomNumber, (byte) (upperLimit - lowerLimit + 1), byte.MaxValue));
+            while (!IsCorrectlyRandomized(randomNumber, (byte) (upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0)), byte.MaxValue));
 
 
-            return (byte)((randomNumber % (upperLimit - lowerLimit + 1)) + lowerLimit);
+            return (byte)((randomNumber % (upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0))) + lowerLimit);
         }
 
         public sbyte RandomSByte(sbyte lowerLimit, sbyte upperLimit)
@@ -83,10 +86,10 @@ namespace RNGCSPRandomGenerator
                 rngcsp.GetBytes(randomBytes);
                 randomNumber = (uint)(randomBytes[0] + (randomBytes[1] * Math.Pow(2, 8)));
             }
-            while (!IsCorrectlyRandomized(randomNumber, (ushort) (upperLimit - lowerLimit + 1), uint.MaxValue));
+            while (!IsCorrectlyRandomized(randomNumber, (ushort)(upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0)), uint.MaxValue));
 
 
-            return (ushort)((randomNumber % (upperLimit - lowerLimit + 1)) + lowerLimit);
+            return (ushort)((randomNumber % (upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0))) + lowerLimit);
         }
 
         public short RandomShort(short lowerLimit, short upperLimit)
@@ -122,10 +125,10 @@ namespace RNGCSPRandomGenerator
                 randomNumber = (uint)(randomBytes[0] + (randomBytes[1] * Math.Pow(2, 8)) +
                 (randomBytes[2] * Math.Pow(2, 16)) + (randomBytes[3] * Math.Pow(2, 24)));
             }
-            while (!IsCorrectlyRandomized(randomNumber, upperLimit - lowerLimit + 1, uint.MaxValue));
+            while (!IsCorrectlyRandomized(randomNumber, (uint)(upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0)), uint.MaxValue));
 
 
-            return (uint) ((randomNumber % (upperLimit - lowerLimit + 1)) + lowerLimit);
+            return (uint) ((randomNumber % (upperLimit - lowerLimit + (upperLimit == lowerLimit ? 1 : 0))) + lowerLimit);
         }
 
         public int RandomInt(int lowerLimit, int upperLimit)
@@ -164,10 +167,10 @@ namespace RNGCSPRandomGenerator
                 (randomBytes[4] * Math.Pow(2, 32)) + (randomBytes[5] * Math.Pow(2, 40)) + 
                 (randomBytes[6] * Math.Pow(2, 48)) + (randomBytes[7] * Math.Pow(2, 48)));
             }
-            while (!IsCorrectlyRandomized(randomNumber, upperLimit - lowerLimit + 1, ulong.MaxValue));
+            while (!IsCorrectlyRandomized(randomNumber, (upperLimit - lowerLimit + (ulong)(upperLimit == lowerLimit ? 1 : 0)), ulong.MaxValue));
 
 
-            return (ulong)((randomNumber % (upperLimit - lowerLimit + 1)) + lowerLimit);
+            return (ulong)((randomNumber % (upperLimit - lowerLimit + (ulong)(upperLimit == lowerLimit ? 1 : 0))) + lowerLimit);
         }
 
         public long RandomLong(long lowerLimit, long upperLimit)

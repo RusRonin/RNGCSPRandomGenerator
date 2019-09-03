@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RNGCSPRandomGenerator
+namespace RandomGenerator
 {
     public interface IRandomGenerator : IDisposable
     {
